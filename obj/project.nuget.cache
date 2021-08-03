@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9lP9yWyzyJsyAaeqYtXB2pHjZYR2xtxH2zHFR8xmpdnozqzNfU45jy8ihgxZqXvAjii9YS7vZtzPzHFs6wqZng==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dolsavsky\\source\\repos\\NetflixReviewSericeAPI\\NetflixReviewSericeAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dolsavsky\\.nuget\\packages\\restsharp\\106.12.0\\restsharp.106.12.0.nupkg.sha512"
+  ],
+  "logs": []
+}
