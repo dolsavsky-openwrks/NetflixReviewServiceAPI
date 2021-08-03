@@ -1,0 +1,11 @@
+Get Shows
+curl --location --request GET 'https://localhost:44335/shows'
+
+Post Review
+curl --location --request POST 'https://localhost:44335/review' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "Rating": 5,
+    "Description": "description",
+    "ShowID": "s1"
+}'
