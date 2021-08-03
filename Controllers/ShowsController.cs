@@ -8,7 +8,7 @@ namespace NetflixReviewSericeAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ShowsController : Controller
+    public class ShowsController : ControllerBase
     {
         private readonly ILogger<ShowsController> logger;
         private readonly IShowsService showsService;

@@ -11,7 +11,7 @@ namespace NetflixReviewSericeAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ReviewController : Controller
+    public class ReviewController : ControllerBase
     {
         private readonly IReviewService reviewService;
         private readonly ILogger<ReviewController> logger;
