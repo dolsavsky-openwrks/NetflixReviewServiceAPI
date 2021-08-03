@@ -16,22 +16,35 @@ namespace NetflixReviewSericeAPI.Repository
         }
         public bool AddReview(Review review)
         {
-            var result = cache.Set(review.ShowID, review, memoryCacheEntryOptions);
+            List<Review> reviews = cache.Get<List<Review>>(review.ShowID); ;
+
+            if (reviews != null)
+                reviews.Add(review);
+            else
+            {
+                reviews = new List<Review>();
+                reviews.Add(review);
+            }
+
+            var result = cache.Set(review.ShowID, reviews, memoryCacheEntryOptions);
 
             return result != null;
         }
 
-        public IEnumerable<Review> GetReviews(IEnumerable<string> showIDs)
+        public IEnumerable<ReviewsResult> GetReviews(IEnumerable<string> showIDs)
         {
-            var result = new List<Review>();
+            var result = new List<ReviewsResult>();
 
             foreach (var id in showIDs)
             {
-                var review = cache.Get<Review>(id);
+                var reviews = cache.Get<List<Review>>(id);
 
-                if(review != null)
+                if (reviews != null)
                 {
-                    result.Add(review);
+                    result.Add(new ReviewsResult { 
+                        Reviews = reviews,
+                        ShowID = id
+                    });
                 }
             }
 

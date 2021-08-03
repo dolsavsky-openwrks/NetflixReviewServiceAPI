@@ -113,7 +113,7 @@ namespace Services.Tests
             var request = fixture.Build<Show>().Without(x => x.Reviews).CreateMany();
 
             reviewRepo.Setup(x => x.GetReviews(It.IsAny<IEnumerable<string>>())).Returns(
-                fixture.CreateMany<Review>(0)
+                fixture.CreateMany<ReviewsResult>(0)
             );
 
             //Act
@@ -136,8 +136,9 @@ namespace Services.Tests
             //Arrange
             var request = fixture.Build<Show>().Without(x => x.Reviews).CreateMany();
             var reviews = fixture.Build<Review>().With(x => x.ShowID, request.First().ID).CreateMany(1).ToList();
+            var reviewResult = fixture.Build<ReviewsResult>().With(x => x.ShowID, request.First().ID).With(x => x.Reviews, reviews).CreateMany(1);
 
-            reviewRepo.Setup(x => x.GetReviews(It.IsAny<IEnumerable<string>>())).Returns(reviews);
+            reviewRepo.Setup(x => x.GetReviews(It.IsAny<IEnumerable<string>>())).Returns(reviewResult);
 
             //Act
             var result = reviewService.GetReviews(request);
@@ -148,8 +149,8 @@ namespace Services.Tests
                 Assert.IsNotNull(result);
                 Assert.IsInstanceOf<IEnumerable<Show>>(result);
                 Assert.IsTrue(result.ToArray()[0].Reviews.Count() > 0);
-                Assert.IsTrue(result.ToArray()[1].Reviews.Count() == 0);
-                Assert.IsTrue(result.ToArray()[2].Reviews.Count() == 0);
+                Assert.IsNull(result.ToArray()[1].Reviews);
+                Assert.IsNull(result.ToArray()[2].Reviews);
             });
         }
 

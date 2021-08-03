@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NetflixReviewSericeAPI.Interfaces;
 using NetflixReviewSericeAPI.Models;
@@ -17,6 +18,8 @@ namespace NetflixReviewSericeAPI.Services
 
         public bool Add(Review review)
         {
+            review.ReviewID = Guid.NewGuid();
+            review.DateCreated = DateTime.Now;
             var result = reviewRepo.AddReview(review);
 
             return result;
@@ -32,7 +35,11 @@ namespace NetflixReviewSericeAPI.Services
             if(allReviews != null && allReviews.Count() > 0)
             {
                 shows = shows.Select(show => {
-                    show.Reviews = allReviews.Where(x => x.ShowID == show.ID);
+                    var reviews = allReviews.FirstOrDefault(x => x.ShowID == show.ID);
+                    if(reviews != null)
+                    {
+                        show.Reviews = reviews.Reviews;
+                    }
                     return show;
                 });
             }

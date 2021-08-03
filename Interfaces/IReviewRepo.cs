@@ -5,7 +5,7 @@ namespace NetflixReviewSericeAPI.Repository
 {
     public interface IReviewRepo
     {
-        public IEnumerable<Review> GetReviews(IEnumerable<string> showIDs);
+        public IEnumerable<ReviewsResult> GetReviews(IEnumerable<string> showIDs);
         public bool AddReview(Review review);
     }
 }
